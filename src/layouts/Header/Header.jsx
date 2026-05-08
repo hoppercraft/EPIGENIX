@@ -21,7 +21,7 @@ function Header({ onNavigateHome, isProjectView = false }) {
                 <button
                     type="button"
                     onClick={onNavigateHome}
-                    className="inline-flex items-center justify-center rounded-full border border-outline-variant/70 bg-surface-lowest/70 px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:bg-surface-lowest"
+                    className="ui-hover-shadow inline-flex items-center justify-center rounded-full border border-outline-variant/70 bg-surface-lowest/70 px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:bg-surface-lowest"
                 >
                     Back to Intro
                 </button>

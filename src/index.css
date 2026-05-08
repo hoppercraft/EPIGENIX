@@ -39,6 +39,17 @@
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 	}
+
+	a[href],
+	button,
+	[role="button"] {
+		cursor: pointer;
+	}
+
+	button:disabled,
+	a[aria-disabled="true"] {
+		cursor: not-allowed;
+	}
 }
 
 @layer components {
@@ -51,14 +62,15 @@
 	.project-backdrop::before {
 		content: "";
 		position: absolute;
-		inset: -2px;
+		inset: -35vmax;
 		z-index: -2;
 		background:
-			radial-gradient(1400px circle at 22% 18%, rgba(var(--primary-container) / 0.55) 0, transparent 62%),
-			radial-gradient(1200px circle at 76% 78%, rgba(var(--primary) / 0.22) 0, transparent 66%),
-			rgb(var(--bg));
-		filter: blur(44px);
-		transform: scale(1.08);
+			radial-gradient(1200px circle at 18% 18%, rgba(var(--primary-container) / 0.70) 0, transparent 62%),
+			radial-gradient(1400px circle at 82% 28%, rgba(var(--primary) / 0.32) 0, transparent 66%),
+			radial-gradient(1500px circle at 52% 92%, rgba(var(--primary-container) / 0.40) 0, transparent 70%),
+			rgb(var(--primary-container) / 0.12);
+		filter: blur(52px) saturate(1.15);
+		transform: translateZ(0);
 	}
 
 	.project-backdrop::after {
@@ -94,5 +106,15 @@
 				transparent 7px
 			);
 		opacity: 0.55;
+	}
+
+	.ui-hover-shadow {
+		transition: box-shadow 180ms ease, transform 180ms ease;
+		will-change: box-shadow, transform;
+	}
+
+	.ui-hover-shadow:hover {
+		box-shadow: 0 14px 38px -12px rgba(15, 23, 42, 0.14);
+		transform: translateY(-1px);
 	}
 }

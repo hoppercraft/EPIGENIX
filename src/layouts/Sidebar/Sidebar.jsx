@@ -7,11 +7,13 @@ function Sidebar() {
 			<h3 className="text-sm font-semibold tracking-wide text-ink">Workspace</h3>
 			<ul className="mt-4 grid gap-2">
 				{['Overview', 'Experiments', 'Reports', 'Settings'].map((item) => (
-					<li
-						key={item}
-						className="rounded-xl border border-outline-variant/70 bg-surface-lowest/80 px-3 py-2 text-sm text-ink shadow-sm transition hover:bg-surface-lowest"
-					>
-						{item}
+					<li key={item}>
+						<button
+							type="button"
+							className="ui-hover-shadow w-full rounded-xl border border-outline-variant/70 bg-surface-lowest/80 px-3 py-2 text-left text-sm text-ink shadow-sm transition hover:bg-surface-lowest"
+						>
+							{item}
+						</button>
 					</li>
 				))}
 			</ul>
