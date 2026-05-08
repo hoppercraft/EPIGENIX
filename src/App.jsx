@@ -1,20 +1,25 @@
-import { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Project from './pages/Project'
+import WorkspaceDashboard from './pages/WorkspaceDashboard'
+import Disease from './pages/Disease'
 
 function App() {
-  const [currentView, setCurrentView] = useState('home')
+	const navigate = useNavigate()
 
-  const goToProject = () => setCurrentView('project')
-  const goToHome = () => setCurrentView('home')
+	const goToProject = () => navigate('/project')
+	const goToHome = () => navigate('/')
 
-  return (
-    currentView === 'home' ? (
-      <Home onEnterProject={goToProject} />
-    ) : (
-      <Project onBackHome={goToHome} />
-    )
-  )
+	return (
+		<Routes>
+			<Route path="/" element={<Home onEnterProject={goToProject} />} />
+
+			<Route path="/project" element={<Project onBackHome={goToHome} />}>
+				<Route index element={<WorkspaceDashboard />} />
+				<Route path=":diseaseSlug" element={<Disease />} />
+			</Route>
+		</Routes>
+	)
 }
 
 export default App

@@ -1,25 +1,54 @@
+import { NavLink } from 'react-router-dom'
+
 function Sidebar() {
+	const diseases = [
+		{
+			name: 'Type 2 diabetes',
+			path: '/project/type-2-diabetes',
+		},
+		{
+			name: 'Crohn’s disease',
+			path: '/project/crohns-disease',
+		},
+		{
+			name: 'Alzheimer’s disease',
+			path: '/project/alzheimers-disease',
+		},
+	]
+
 	return (
-		<aside
-			className="h-full border-b border-outline-variant/60 bg-surface-lowest/65 px-4 py-5 shadow-glass backdrop-blur-glass md:border-b-0 md:border-r"
-			aria-label="Project navigation"
-		>
-			<h3 className="text-sm font-semibold tracking-wide text-ink">Workspace</h3>
-			<ul className="mt-4 grid gap-2">
-				{['Overview', 'Experiments', 'Reports', 'Settings'].map((item) => (
-					<li key={item}>
-						<button
-							type="button"
-							className="ui-hover-shadow w-full rounded-xl border border-outline-variant/70 bg-surface-lowest/80 px-3 py-2 text-left text-sm text-ink shadow-sm transition hover:bg-surface-lowest"
-						>
-							{item}
-						</button>
-					</li>
+		<aside className="p-4">
+			<nav className="space-y-2">
+				<NavLink
+					to="/project"
+					end
+					className={({ isActive }) =>
+						`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
+							isActive
+								? 'bg-surface-lowest text-ink shadow-sm'
+								: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
+						}`
+					}
+				>
+					Overview
+				</NavLink>
+
+				{diseases.map((disease) => (
+					<NavLink
+						key={disease.path}
+						to={disease.path}
+						className={({ isActive }) =>
+							`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
+								isActive
+									? 'bg-surface-lowest text-ink shadow-sm'
+									: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
+							}`
+						}
+					>
+						{disease.name}
+					</NavLink>
 				))}
-			</ul>
-			<p className="mt-4 text-xs leading-5 text-muted">
-				Placeholder menu for the main project area.
-			</p>
+			</nav>
 		</aside>
 	)
 }
