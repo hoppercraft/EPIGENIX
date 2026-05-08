@@ -14,7 +14,6 @@ function Header({ onNavigateHome, isProjectView = false }) {
                 </span>
                 <span className="leading-tight">
                     <span className="block font-display font-semibold tracking-tight text-ink">EpiGeniX</span>
-                    <span className="block text-xs font-medium tracking-widest text-muted">PROJECT INTRO</span>
                 </span>
             </button>
 
