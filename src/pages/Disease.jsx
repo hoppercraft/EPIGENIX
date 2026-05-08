@@ -39,23 +39,7 @@ function Disease() {
 
 			<section className="grid gap-4 rounded-3xl border border-outline-variant/60 bg-surface-lowest/45 p-5 shadow-glass backdrop-blur-glass lg:grid-cols-[1fr_1.4fr]">
 				<div className="space-y-5">
-					<div>
-						<label htmlFor="diseaseSelector" className="mb-1 block text-sm font-medium text-ink">
-							Select disease
-						</label>
-						<select
-							id="diseaseSelector"
-							value={selectedDisease}
-							onChange={(event) => navigate(`/project/${event.target.value}`)}
-							className="w-full rounded-xl border border-outline-variant/70 bg-surface-lowest/70 px-3 py-2 text-sm text-ink"
-						>
-							{diseaseOptions.map((option) => (
-								<option key={option.slug} value={option.slug}>
-									{option.name}
-								</option>
-							))}
-						</select>
-					</div>
+					
 
 					<div className="space-y-4">
 						{diseaseConfig.sliders.map((slider) => (
