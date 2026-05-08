@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import Project from './pages/Project'
-import WorkspaceDashboard from './pages/WorkspaceDashboard'
+import WorkspaceDashboard from './pages/workspaceDashboard'
 import Disease from './pages/Disease'
 
 function App() {
