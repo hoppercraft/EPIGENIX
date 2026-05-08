@@ -1,54 +1,66 @@
 import { NavLink } from 'react-router-dom'
+import { diseaseOptions } from '../../features/diseases/data/diseases'
 
 function Sidebar() {
-	const diseases = [
-		{
-			name: 'Type 2 diabetes',
-			path: '/project/type-2-diabetes',
-		},
-		{
-			name: 'Crohn’s disease',
-			path: '/project/crohns-disease',
-		},
-		{
-			name: 'Alzheimer’s disease',
-			path: '/project/alzheimers-disease',
-		},
-	]
+	const workspaceItems = ['Overview']
 
 	return (
 		<aside className="p-4">
-			<nav className="space-y-2">
-				<NavLink
-					to="/project"
-					end
-					className={({ isActive }) =>
-						`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
-							isActive
-								? 'bg-surface-lowest text-ink shadow-sm'
-								: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
-						}`
-					}
-				>
-					Overview
-				</NavLink>
+			<div className="space-y-6">
+				<nav className="space-y-2">
+					<p className="px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+						Workspace
+					</p>
+					{workspaceItems.map((label) =>
+						label === 'Overview' ? (
+							<NavLink
+								key={label}
+								to="/project"
+								end
+								className={({ isActive }) =>
+									`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
+										isActive
+											? 'bg-surface-lowest text-ink shadow-sm'
+											: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
+									}`
+								}
+							>
+								{label}
+							</NavLink>
+						) : (
+							<button
+								key={label}
+								type="button"
+								className="block w-full rounded-xl px-4 py-3 text-left text-sm font-medium text-muted opacity-70"
+								disabled
+							>
+								{label}
+							</button>
+						)
+					)}
+				</nav>
 
-				{diseases.map((disease) => (
-					<NavLink
-						key={disease.path}
-						to={disease.path}
-						className={({ isActive }) =>
-							`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
-								isActive
-									? 'bg-surface-lowest text-ink shadow-sm'
-									: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
-							}`
-						}
-					>
-						{disease.name}
-					</NavLink>
-				))}
-			</nav>
+				<nav className="space-y-2">
+					<p className="px-3 text-xs font-semibold uppercase tracking-widest text-muted">
+						Disease library
+					</p>
+					{diseaseOptions.map((disease) => (
+						<NavLink
+							key={disease.slug}
+							to={`/project/${disease.slug}`}
+							className={({ isActive }) =>
+								`ui-hover-shadow block rounded-xl px-4 py-3 text-sm font-medium transition ${
+									isActive
+										? 'bg-surface-lowest text-ink shadow-sm'
+										: 'text-muted hover:bg-surface-lowest/50 hover:text-ink'
+								}`
+							}
+						>
+							{disease.name}
+						</NavLink>
+					))}
+				</nav>
+			</div>
 		</aside>
 	)
 }
