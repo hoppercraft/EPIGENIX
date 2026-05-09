@@ -41,7 +41,9 @@ const STATS = [
 ]
 
 function Home({ onEnterProject }) {
+	localStorage.clear()
 	return (
+		
 		<div className="relative min-h-screen overflow-hidden">
 			{/* Background effects */}
 			<div className="bg-orbs" />
