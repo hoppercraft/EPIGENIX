@@ -8,10 +8,7 @@ function Header({ onNavigateHome, isProjectView = false }) {
 				className="group inline-flex items-center gap-3 text-left transition-opacity hover:opacity-80"
 				onClick={isProjectView ? onNavigateHome : undefined}
 			>
-				<div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-[rgb(var(--primary))] to-[rgb(var(--accent-purple))] text-sm shadow-lg shadow-[rgba(var(--primary),0.2)]">
-					<IconDna className="text-base text-white" />
-				</div>
-				<span className="leading-tight">
+				<img src="/EPIGENIX.png" alt="EPIGENIX" className="h-10 w-auto object-contain" /><span className="leading-tight">
 					<span className="block font-[Outfit] text-sm font-bold tracking-tight text-[rgb(var(--on-surface))]">
 						EpiGeniX
 					</span>

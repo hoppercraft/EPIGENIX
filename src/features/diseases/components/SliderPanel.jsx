@@ -47,9 +47,11 @@ function SliderPanel({ sliders, sliderValues, onSliderChange }) {
 									}
 									className="w-full"
 									style={{
+										'--thumb-color': isProtective ? 'var(--risk-low)' : 'var(--risk-high)',
 										background: `linear-gradient(90deg, ${
-											isProtective ? 'rgb(var(--risk-low))' : 'rgb(var(--primary))'
-										} ${percentage}%, rgba(var(--outline-variant), 0.2) ${percentage}%)`,
+											isProtective ? 'rgb(var(--risk-low))' : 'rgb(var(--risk-high))'
+										} ${percentage}%, rgba(0, 0, 0, 0.6) ${percentage}%)`,
+										boxShadow: 'inset 0 1px 4px rgba(0,0,0,0.5)',
 									}}
 								/>
 								<div className="mt-1 flex justify-between text-[10px] text-[rgb(var(--on-surface-variant))]">

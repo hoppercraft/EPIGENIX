@@ -19,7 +19,7 @@ const FEATURES = [
 	},
 	{
 		icon: IconShield,
-		title: 'Explainable AI',
+		title: 'Explainable UI',
 		description: 'See exactly which genetic markers and lifestyle factors drive your risk score.',
 		bg: 'rgba(59, 130, 246, 0.12)',
 		fg: 'rgb(59, 130, 246)',
@@ -50,12 +50,7 @@ function Home({ onEnterProject }) {
 			{/* ====================== NAV ====================== */}
 			<nav className="anim-fade-in relative z-10 flex items-center justify-between px-6 py-5 sm:px-10">
 				<div className="flex items-center gap-3">
-					<div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-[rgb(var(--primary))] to-[rgb(var(--accent-purple))]">
-						<span className="text-sm font-bold text-white">E</span>
-					</div>
-					<span className="font-[Outfit] text-lg font-bold tracking-tight text-[rgb(var(--on-surface))]">
-						EpiGeniX
-					</span>
+					<img src="/EPIGENIX.png" alt="EpiGeniX" className="h-10 w-auto object-contain" />
 				</div>
 				<div className="flex items-center gap-3">
 					<a

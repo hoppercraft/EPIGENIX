@@ -44,8 +44,8 @@ function SnpCards({ markers }) {
 								<p className="text-sm font-bold text-[rgb(var(--on-surface))]">{marker.riskAllele}</p>
 							</div>
 							<div className="rounded-lg bg-[rgba(var(--outline-variant),0.1)] px-3 py-1.5">
-								<p className="text-[10px] uppercase tracking-wider text-[rgb(var(--on-surface-variant))]">Position</p>
-								<p className="text-sm font-bold text-[rgb(var(--on-surface))]">({marker.x}, {marker.y})</p>
+								<p className="text-[10px] uppercase tracking-wider text-[rgb(var(--on-surface-variant))]">Organ</p>
+								<p className="text-sm font-bold text-[rgb(var(--on-surface))]">{marker.organ || 'Systemic'}</p>
 							</div>
 						</div>
 

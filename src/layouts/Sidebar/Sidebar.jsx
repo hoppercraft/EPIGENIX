@@ -10,7 +10,7 @@ const DISEASE_ICONS = {
 
 function Sidebar() {
 	return (
-		<aside className="border-r border-[rgba(var(--outline-variant),0.15)] bg-[rgba(var(--surface),0.5)] p-4 backdrop-blur-lg">
+		<aside className="h-full flex flex-col overflow-y-auto border-r border-[rgba(var(--outline-variant),0.15)] bg-[rgba(var(--surface),0.5)] p-4 backdrop-blur-lg">
 			<div className="space-y-6">
 				{/* Workspace nav */}
 				<nav className="space-y-1">

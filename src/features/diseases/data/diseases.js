@@ -48,6 +48,7 @@ const diseaseCatalog = {
 				weight: 1,
 				riskAllele: 'T',
 				oddsRatio: '1.37',
+				organ: 'Pancreas',
 				function: 'Regulates insulin secretion in beta cells.',
 			},
 			{
@@ -58,6 +59,7 @@ const diseaseCatalog = {
 				weight: 0.9,
 				riskAllele: 'A',
 				oddsRatio: '1.25',
+				organ: 'Brain / Adipose',
 				function: 'Linked to appetite regulation and adiposity.',
 			},
 			{
@@ -68,6 +70,7 @@ const diseaseCatalog = {
 				weight: 0.82,
 				riskAllele: 'G',
 				oddsRatio: '1.18',
+				organ: 'Adipose Tissue',
 				function: 'Controls lipid metabolism and insulin sensitivity.',
 			},
 			{
@@ -78,6 +81,7 @@ const diseaseCatalog = {
 				weight: 0.75,
 				riskAllele: 'T',
 				oddsRatio: '1.12',
+				organ: 'Pancreas',
 				function: 'Zinc transporter in pancreatic beta cells.',
 			},
 		],
@@ -133,6 +137,7 @@ const diseaseCatalog = {
 				weight: 1,
 				riskAllele: 'C',
 				oddsRatio: '1.7',
+				organ: 'Intestine',
 				function: 'Innate immune sensing in gut mucosa.',
 			},
 			{
@@ -143,6 +148,7 @@ const diseaseCatalog = {
 				weight: 0.85,
 				riskAllele: 'G',
 				oddsRatio: '1.4',
+				organ: 'Intestine',
 				function: 'Modulates inflammatory signaling pathways.',
 			},
 			{
@@ -153,6 +159,7 @@ const diseaseCatalog = {
 				weight: 0.8,
 				riskAllele: 'G',
 				oddsRatio: '1.35',
+				organ: 'Intestine',
 				function: 'Autophagy regulation in gut epithelium.',
 			},
 		],
@@ -208,6 +215,7 @@ const diseaseCatalog = {
 				weight: 1,
 				riskAllele: 'C',
 				oddsRatio: '3.2',
+				organ: 'Brain',
 				function: 'Lipid transport and amyloid clearance.',
 			},
 			{
@@ -218,6 +226,7 @@ const diseaseCatalog = {
 				weight: 0.78,
 				riskAllele: 'C',
 				oddsRatio: '1.2',
+				organ: 'Brain',
 				function: 'Protein chaperone in stress response.',
 			},
 			{
@@ -228,6 +237,7 @@ const diseaseCatalog = {
 				weight: 0.72,
 				riskAllele: 'G',
 				oddsRatio: '1.15',
+				organ: 'Brain',
 				function: 'Synaptic vesicle trafficking support.',
 			},
 		],

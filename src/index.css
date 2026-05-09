@@ -369,6 +369,7 @@
 
 	/* --- Custom range slider --- */
 	input[type="range"] {
+		--thumb-color: var(--primary);
 		-webkit-appearance: none;
 		appearance: none;
 		width: 100%;
@@ -384,9 +385,9 @@
 		width: 20px;
 		height: 20px;
 		border-radius: 50%;
-		background: rgb(var(--primary));
+		background: rgb(var(--thumb-color));
 		box-shadow:
-			0 0 10px rgba(var(--primary), 0.5),
+			0 0 10px rgba(var(--thumb-color), 0.5),
 			0 2px 8px rgba(0, 0, 0, 0.3);
 		cursor: pointer;
 		transition: all 200ms ease;
@@ -394,24 +395,24 @@
 	input[type="range"]::-webkit-slider-thumb:hover {
 		transform: scale(1.15);
 		box-shadow:
-			0 0 18px rgba(var(--primary), 0.7),
+			0 0 18px rgba(var(--thumb-color), 0.7),
 			0 4px 12px rgba(0, 0, 0, 0.4);
 	}
 	input[type="range"]::-moz-range-thumb {
 		width: 20px;
 		height: 20px;
 		border-radius: 50%;
-		background: rgb(var(--primary));
+		background: rgb(var(--thumb-color));
 		box-shadow:
-			0 0 10px rgba(var(--primary), 0.5),
+			0 0 10px rgba(var(--thumb-color), 0.5),
 			0 2px 8px rgba(0, 0, 0, 0.3);
 		cursor: pointer;
 		border: none;
 	}
 	input[type="range"]:focus-visible::-webkit-slider-thumb {
 		box-shadow:
-			0 0 0 3px rgba(var(--primary), 0.3),
-			0 0 18px rgba(var(--primary), 0.7);
+			0 0 0 3px rgba(var(--thumb-color), 0.3),
+			0 0 18px rgba(var(--thumb-color), 0.7);
 	}
 
 	/* --- Anatomy grid & SVG --- */
