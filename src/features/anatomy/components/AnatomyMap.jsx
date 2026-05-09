@@ -81,7 +81,7 @@ function AnatomyMap({ diseaseConfig, markerData, onMarkerHover, onMarkerBlur }) 
 							cy={region.cy}
 							rx={region.rx}
 							ry={region.ry}
-							className="anatomy-region"
+							fill="rgba(128, 128, 128, 0.2)"
 						>
 							<title>{region.label}</title>
 						</ellipse>

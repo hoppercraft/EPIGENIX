@@ -16,7 +16,7 @@ function Anatomy({ diseaseKey, diseaseConfig, sliderValues }) {
 				return {
 					...marker,
 					contribution,
-					radius: 2.8 + contribution * 3.0,
+					radius: 1.8 + contribution * 3.0,
 					opacity: 0.35 + contribution * 0.65,
 				}
 			}),
