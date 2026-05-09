@@ -6,7 +6,7 @@ import SliderPanel from '../features/diseases/components/SliderPanel'
 import SnpCards from '../features/diseases/components/SnpCards'
 import useDiseaseState from '../features/diseases/hooks/useDiseaseState'
 import useScenarioCompare from '../features/diseases/hooks/useScenarioCompare'
-
+import { useGeneticData } from '../Context/GeneticDataContext'
 function Disease() {
 	const {
 		selectedDisease,

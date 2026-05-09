@@ -7,6 +7,8 @@ import {
 	getInitialSliderValues,
 	getTopDrivers,
 } from '../features/diseases/model/risk'
+import { useGeneticData } from '../Context/GeneticDataContext'
+
 
 const KNOWN_DISEASES = [
 	{ slug: 'crohns-disease', match: ['crohn', "crohn's", 'crohns'] },
@@ -54,11 +56,14 @@ const parseDelimited = (text, delimiter) => {
 }
 
 function WorkspaceDashboard() {
+	const { setGeneticData } = useGeneticData()
+
 	const [uploadState, setUploadState] = useState({
 		status: 'idle',
 		fileName: '',
 		diseaseSlug: null,
 		error: '',
+		data: null,
 	})
 
 	const handleFile = (file) => {
@@ -71,30 +76,37 @@ function WorkspaceDashboard() {
 				const text = String(reader.result ?? '')
 				const ext = file.name.split('.').pop()?.toLowerCase()
 				let parsedDisease = null
+				let parsedData = null
 
-				if (ext === 'json') {
-					const parsed = JSON.parse(text)
-					const firstItem = Array.isArray(parsed) ? parsed[0] : parsed
+				try {
+					parsedData = JSON.parse(text)
+					const firstItem = Array.isArray(parsedData) ? parsedData[0] : parsedData
 					parsedDisease = extractDiseaseFromObject(firstItem)
-				} else {
+				} catch {
 					const delimiter = ext === 'tsv' ? '\t' : ','
 					const rows = parseDelimited(text, delimiter)
+					parsedData = rows
 					parsedDisease = extractDiseaseFromObject(rows[0])
 				}
 
 				const diseaseSlug = detectDisease(parsedDisease)
+				
+				setGeneticData(parsedData)
+
 				setUploadState({
-					status: 'ready',
+					status: diseaseSlug === 'unknown' ? 'stored' : 'ready',
 					fileName: file.name,
 					diseaseSlug,
 					error: '',
-				})
+					data: parsedData,
+				}) 
 			} catch (error) {
 				setUploadState({
 					status: 'error',
 					fileName: file.name,
 					diseaseSlug: null,
 					error: 'We could not read that file. Please upload a valid JSON, CSV, or TSV.',
+					data: null,
 				})
 			}
 		}
@@ -102,39 +114,170 @@ function WorkspaceDashboard() {
 	}
 
 	if (uploadState.status !== 'ready') {
-		return (
-			<div className="relative z-10 max-w-3xl space-y-6">
-				<div className="space-y-2">
-					<p className="text-xs font-semibold uppercase tracking-widest text-muted">
-						Overview
-					</p>
-					<h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-						Upload patient scan
-					</h2>
-					<p className="text-base leading-7 text-muted">
-						Upload a JSON, CSV, or TSV to detect the disease and load the executive dashboard.
-					</p>
-				</div>
-
-				<div className="rounded-3xl border border-outline-variant/60 bg-surface-lowest/50 p-6 shadow-glass backdrop-blur-glass">
-					<label className="block text-sm font-medium text-ink">Patient data file</label>
-					<input
-						type="file"
-						accept=".json,.csv,.tsv,application/json,text/csv,text/tab-separated-values"
-						className="mt-3 block w-full rounded-2xl border border-outline-variant/60 bg-surface-lowest/70 px-4 py-3 text-sm text-ink file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-semibold file:text-on-primary"
-						onChange={(event) => handleFile(event.target.files?.[0])}
-					/>
-					{uploadState.status === 'error' ? (
-						<p className="mt-3 text-sm text-red-600">{uploadState.error}</p>
-					) : (
-						<p className="mt-3 text-xs text-muted">
-							We support disease labels in fields like “disease”, “diagnosis”, or “condition”.
-						</p>
-					)}
-				</div>
+	return (
+		<div className="relative z-10 max-w-3xl space-y-6">
+			<div className="space-y-2">
+				<p className="text-xs font-semibold uppercase tracking-widest text-muted">
+					Overview
+				</p>
+				<h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+					Upload patient scan
+				</h2>
+				<p className="text-base leading-7 text-muted">
+					Upload a JSON, CSV, or TSV file. EPIGENIX will store and display the
+					patient data after upload.
+				</p>
 			</div>
-		)
-	}
+
+			<div className="rounded-3xl border border-outline-variant/60 bg-surface-lowest/50 p-6 shadow-glass backdrop-blur-glass">
+				<label className="block text-sm font-medium text-ink">
+					Patient data file
+				</label>
+
+				<input
+					type="file"
+					accept=".json,.csv,.tsv,.txt,application/json,text/plain,text/csv,text/tab-separated-values"
+					className="mt-3 block w-full rounded-2xl border border-outline-variant/60 bg-surface-lowest/70 px-4 py-3 text-sm text-ink file:mr-4 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-xs file:font-semibold file:text-on-primary"
+					onChange={(event) => handleFile(event.target.files?.[0])}
+				/>
+
+				{uploadState.status === 'error' ? (
+					<p className="mt-3 text-sm text-red-600">{uploadState.error}</p>
+				) : uploadState.status === 'stored' ? (
+					<div className="mt-3 rounded-2xl border border-outline-variant/60 bg-surface-lowest/60 p-4">
+						<p className="text-sm font-semibold text-ink">
+							File uploaded successfully.
+						</p>
+						<p className="mt-1 text-xs leading-5 text-muted">
+							No disease label was found, so EPIGENIX is staying on the overview
+							page. Add a field like{' '}
+							<code>"disease": "Type 2 Diabetes"</code> to load a disease
+							dashboard.
+						</p>
+						<p className="mt-2 text-xs text-muted">
+							Source file: {uploadState.fileName}
+						</p>
+					</div>
+				) : (
+					<p className="mt-3 text-xs text-muted">
+						We support disease labels in fields like “disease”, “diagnosis”, or
+						“condition”.
+					</p>
+				)}
+			</div>
+
+			{uploadState.data && (
+				<section className="rounded-3xl border border-outline-variant/60 bg-surface-lowest/50 p-6 shadow-glass backdrop-blur-glass">
+					<div className="flex flex-wrap items-start justify-between gap-4">
+						<div>
+							<p className="text-xs font-semibold uppercase tracking-widest text-muted">
+								Uploaded Patient Data
+							</p>
+							<h3 className="mt-2 font-display text-xl font-semibold tracking-tight text-ink">
+								{uploadState.data.patient_id ||
+									uploadState.data.patientId ||
+									'Patient data'}
+							</h3>
+						</div>
+
+						<div className="rounded-2xl border border-outline-variant/60 bg-surface-lowest/60 px-4 py-3 text-sm">
+							<p className="text-xs uppercase tracking-wide text-muted">
+								Source file
+							</p>
+							<p className="mt-1 font-medium text-ink">
+								{uploadState.fileName}
+							</p>
+						</div>
+					</div>
+
+					<div className="mt-6 grid gap-4 sm:grid-cols-3">
+						<article className="rounded-2xl border border-outline-variant/60 bg-surface-lowest/60 p-4">
+							<p className="text-xs uppercase tracking-widest text-muted">
+								Patient ID
+							</p>
+							<p className="mt-2 text-sm font-semibold text-ink">
+								{uploadState.data.patient_id ||
+									uploadState.data.patientId ||
+									'Not provided'}
+							</p>
+						</article>
+
+						<article className="rounded-2xl border border-outline-variant/60 bg-surface-lowest/60 p-4">
+							<p className="text-xs uppercase tracking-widest text-muted">
+								Age
+							</p>
+							<p className="mt-2 text-sm font-semibold text-ink">
+								{uploadState.data.age || 'Not provided'}
+							</p>
+						</article>
+
+						<article className="rounded-2xl border border-outline-variant/60 bg-surface-lowest/60 p-4">
+							<p className="text-xs uppercase tracking-widest text-muted">
+								Suffering disease
+							</p>
+							<p className="mt-2 text-sm font-semibold text-ink">
+								{uploadState.diseaseSlug === 'unknown'
+									? 'Not provided'
+									: uploadState.diseaseSlug}
+							</p>
+						</article>
+					</div>
+
+					{Array.isArray(uploadState.data.variants) && (
+						<div className="mt-6 overflow-hidden rounded-2xl border border-outline-variant/60">
+							<div className="bg-surface-lowest/60 px-4 py-3">
+								<h4 className="text-sm font-semibold text-ink">
+									Variant Report
+								</h4>
+							</div>
+
+							<div className="overflow-x-auto">
+								<table className="w-full min-w-[640px] text-left text-sm">
+									<thead className="bg-background/60 text-xs uppercase tracking-widest text-muted">
+										<tr>
+											<th className="px-4 py-3">Gene</th>
+											<th className="px-4 py-3">Variant</th>
+											<th className="px-4 py-3">Genotype</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										{uploadState.data.variants.map((variant, index) => (
+											<tr
+												key={`${variant.gene}-${variant.variant}-${index}`}
+												className="border-t border-outline-variant/60"
+											>
+												<td className="px-4 py-3 font-semibold text-ink">
+													{variant.gene || 'Unknown'}
+												</td>
+												<td className="px-4 py-3 text-muted">
+													{variant.variant || variant.rsid || 'Unknown'}
+												</td>
+												<td className="px-4 py-3 text-muted">
+													{variant.genotype || 'Unknown'}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					)}
+
+					<details className="mt-6 rounded-2xl border border-outline-variant/60 bg-black/90 p-4">
+						<summary className="cursor-pointer text-sm font-semibold text-green-300">
+							Show raw JSON
+						</summary>
+
+						<pre className="mt-4 max-h-80 overflow-auto text-xs leading-6 text-green-300">
+							{JSON.stringify(uploadState.data, null, 2)}
+						</pre>
+					</details>
+				</section>
+			)}
+		</div>
+	)
+}
 
 	const selectedDiseaseSlug = uploadState.diseaseSlug
 	const isUnknown = selectedDiseaseSlug === 'unknown'
