@@ -24,10 +24,14 @@ function Anatomy({ diseaseKey, diseaseConfig, sliderValues }) {
 	)
 
 	return (
-		<section className="rounded-3xl border border-outline-variant/60 bg-surface-lowest/45 p-5 shadow-glass backdrop-blur-glass">
+		<section className="glass-card p-5">
 			<div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-				<h3 className="font-display text-xl font-semibold text-ink">Anatomy risk map</h3>
-				<p className="text-sm text-muted">Disease intensity: {(diseaseRisk * 100).toFixed(1)}%</p>
+				<h3 className="font-[Outfit] text-lg font-bold text-[rgb(var(--on-surface))]">
+					Anatomy Risk Map
+				</h3>
+				<span className="rounded-lg bg-[rgba(var(--primary),0.1)] px-3 py-1 text-xs font-semibold text-[rgb(var(--primary))]">
+					Intensity: {(diseaseRisk * 100).toFixed(1)}%
+				</span>
 			</div>
 
 			<div className="anatomy-grid">

@@ -17,13 +17,21 @@ function AnatomyMap({ diseaseConfig, markerData, onMarkerHover, onMarkerBlur }) 
 			</desc>
 			<defs>
 				<linearGradient id="bodyGlassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-					<stop offset="0%" stopColor="rgba(255,255,255,0.66)" />
-					<stop offset="100%" stopColor="rgba(194,230,242,0.24)" />
+					<stop offset="0%" stopColor="rgba(45,212,191,0.12)" />
+					<stop offset="100%" stopColor="rgba(139,92,246,0.06)" />
 				</linearGradient>
 				<radialGradient id="bodyHighlight" cx="30%" cy="20%" r="70%">
-					<stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
-					<stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
+					<stop offset="0%" stopColor="rgba(45,212,191,0.15)" />
+					<stop offset="100%" stopColor="rgba(45,212,191,0.02)" />
 				</radialGradient>
+				{/* Glow filter for markers */}
+				<filter id="riskGlow" x="-50%" y="-50%" width="200%" height="200%">
+					<feGaussianBlur stdDeviation="2" result="blur" />
+					<feMerge>
+						<feMergeNode in="blur" />
+						<feMergeNode in="SourceGraphic" />
+					</feMerge>
+				</filter>
 			</defs>
 
 			<g className="anatomy-body">
@@ -60,6 +68,7 @@ function AnatomyMap({ diseaseConfig, markerData, onMarkerHover, onMarkerBlur }) 
 						r={marker.radius}
 						opacity={marker.opacity}
 						className="risk-marker"
+						filter="url(#riskGlow)"
 						onMouseEnter={() => onMarkerHover(marker)}
 						onFocus={() => onMarkerHover(marker)}
 						onMouseLeave={onMarkerBlur}

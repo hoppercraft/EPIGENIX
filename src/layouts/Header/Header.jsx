@@ -1,35 +1,38 @@
-import epigenixLogo from "../../assets/EPIGENIX.png";
-function Header({ onNavigateHome, isProjectView = false }) {
-    return (
-        <header className="flex items-center justify-between gap-4 border-b border-outline-variant/60 bg-surface-lowest/70 px-5 py-4 shadow-glass backdrop-blur-glass">
-            <button
-                type="button"
-                className="inline-flex items-center gap-3 text-left"
-                onClick={isProjectView ? onNavigateHome : undefined}
-            >
-                <span
-                    className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-xs font-bold tracking-widest text-on-primary"
-                    aria-hidden="true"
-                >
-                    <img src={epigenixLogo} alt="EPIGENIX logo" />
-                </span>
-                <span className="leading-tight">
-                    <span className="block font-display font-semibold tracking-tight text-ink">EpiGeniX</span>
-                </span>
-            </button>
+import { IconDna, IconArrowRight } from '../../components/Icons'
 
-            {isProjectView && (
-                <button
-                    type="button"
-                    onClick={onNavigateHome}
-                    className="ui-hover-shadow inline-flex items-center justify-center rounded-full border border-outline-variant/70 bg-surface-lowest/70 px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:bg-surface-lowest"
-                >
-                    Back to Intro
-                </button>
-            )}
-        </header>
-    )
+function Header({ onNavigateHome, isProjectView = false }) {
+	return (
+		<header className="relative z-20 flex items-center justify-between gap-4 border-b border-[rgba(var(--outline-variant),0.2)] bg-[rgba(var(--surface),0.8)] px-5 py-3.5 backdrop-blur-xl">
+			<button
+				type="button"
+				className="group inline-flex items-center gap-3 text-left transition-opacity hover:opacity-80"
+				onClick={isProjectView ? onNavigateHome : undefined}
+			>
+				<div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-[rgb(var(--primary))] to-[rgb(var(--accent-purple))] text-sm shadow-lg shadow-[rgba(var(--primary),0.2)]">
+					<IconDna className="text-base text-white" />
+				</div>
+				<span className="leading-tight">
+					<span className="block font-[Outfit] text-sm font-bold tracking-tight text-[rgb(var(--on-surface))]">
+						EpiGeniX
+					</span>
+					<span className="block text-[10px] font-medium text-[rgb(var(--on-surface-variant))]">
+						Epigenetic Risk Platform
+					</span>
+				</span>
+			</button>
+
+			{isProjectView && (
+				<button
+					type="button"
+					onClick={onNavigateHome}
+					className="btn-ghost !px-4 !py-2 text-xs"
+				>
+					<IconArrowRight className="rotate-180 text-sm" />
+					Back to Home
+				</button>
+			)}
+		</header>
+	)
 }
 
 export default Header
-

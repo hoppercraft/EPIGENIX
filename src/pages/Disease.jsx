@@ -28,14 +28,14 @@ function Disease() {
 	}
 
 	return (
-		<div className="relative z-10 max-w-6xl space-y-6">
+		<div className="relative z-10 max-w-6xl space-y-8">
 			<DiseaseHeader
 				name={diseaseConfig.name}
 				description={diseaseConfig.description}
 				riskScore={diseaseRisk}
 			/>
 
-			<section className="grid gap-4 rounded-3xl border border-outline-variant/60 bg-surface-lowest/45 p-5 shadow-glass backdrop-blur-glass lg:grid-cols-[1fr_1.4fr]">
+			<section className="anim-fade-up anim-delay-1 glass-card grid gap-6 p-6 lg:grid-cols-[1fr_1.4fr]">
 				<SliderPanel
 					sliders={diseaseConfig.sliders}
 					sliderValues={sliderValues}
@@ -48,7 +48,7 @@ function Disease() {
 				/>
 			</section>
 
-			<section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+			<section className="anim-fade-up anim-delay-2 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
 				<ExplainabilityPanel drivers={topDrivers} />
 				<ScenarioPanel
 					baselineRisk={baselineRisk}
@@ -59,8 +59,11 @@ function Disease() {
 				/>
 			</section>
 
-			<SnpCards markers={diseaseConfig.markers} />
-			<p className="text-xs text-muted">
+			<div className="anim-fade-up anim-delay-3">
+				<SnpCards markers={diseaseConfig.markers} />
+			</div>
+
+			<p className="text-xs text-[rgb(var(--on-surface-variant))]">
 				Educational demo only. Risk scores and genetic markers are simplified for prototype use.
 			</p>
 		</div>
