@@ -87,7 +87,6 @@ function WorkspaceDashboard() {
 		error: '',
 		data: null,
 	})
-
 	const displayedData = geneticData || uploadState.data
 	const displayedDataObject = getDataObject(displayedData)
 	const displayedVariants = getVariants(displayedData)
