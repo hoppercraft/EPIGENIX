@@ -459,12 +459,6 @@
 		transform-origin: center;
 		animation: riskPulse 3s ease-in-out infinite;
 	}
-	.risk-marker:hover,
-	.risk-marker:focus-visible {
-		transform: scale(1.2);
-		outline: none;
-		filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8));
-	}
 
 	/* --- Stagger animation helpers --- */
 	.anim-fade-up {

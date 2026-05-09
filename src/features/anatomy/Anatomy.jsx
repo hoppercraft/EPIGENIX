@@ -10,17 +10,37 @@ function Anatomy({ diseaseKey, diseaseConfig, sliderValues }) {
 	const diseaseRisk = calculateDiseaseRisk(diseaseKey, sliderValues)
 
 	const markerData = useMemo(
-		() =>
-			diseaseConfig.markers.map((marker) => {
+		() => {
+			const region = diseaseConfig.affectedRegions?.[0]
+			const numMarkers = diseaseConfig.markers.length
+
+			return diseaseConfig.markers.map((marker, index) => {
 				const contribution = clamp(diseaseRisk * marker.weight)
+				
+				let x = marker.x
+				let y = marker.y
+
+				// Auto-sync marker position with the region's center
+				if (region) {
+					// Distribute markers evenly in a tight cluster inside the region
+					const angle = (index / numMarkers) * Math.PI * 2 - Math.PI / 2
+					const rX = (region.rx || 10) * 0.4
+					const rY = (region.ry || 10) * 0.4
+					x = region.cx + Math.cos(angle) * rX
+					y = region.cy + Math.sin(angle) * rY
+				}
+
 				return {
 					...marker,
+					x,
+					y,
 					contribution,
 					radius: 1.8 + contribution * 3.0,
 					opacity: 0.35 + contribution * 0.65,
 				}
-			}),
-		[diseaseConfig.markers, diseaseRisk]
+			})
+		},
+		[diseaseConfig, diseaseRisk]
 	)
 
 	return (
@@ -40,6 +60,7 @@ function Anatomy({ diseaseKey, diseaseConfig, sliderValues }) {
 					markerData={markerData}
 					onMarkerHover={setHoveredMarker}
 					onMarkerBlur={() => setHoveredMarker(null)}
+					hoveredMarker={hoveredMarker}
 				/>
 				<AnatomyLegend hoveredMarker={hoveredMarker} diseaseRisk={diseaseRisk} />
 			</div>
